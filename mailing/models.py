@@ -77,6 +77,7 @@ class Mailing(models.Model):
 
 
 class Log(models.Model):
+
     SUCCESS = 'Успешно'
     FAILED = 'Не успешно'
     STATUS_CHOICES = [

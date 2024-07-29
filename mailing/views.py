@@ -20,15 +20,15 @@ class ClientDetailView(DetailView):
 class ClientCreateView(CreateView):
     model = Client
     fields = ['name', 'email', 'comment']
-    success_url = reverse_lazy('mailing:clients_list')
+    success_url = reverse_lazy('mailing:client_list')
 
 
 class ClientUpdateView(UpdateView):
     model = Client
     fields = ['name', 'email', 'comment']
-    success_url = reverse_lazy('mailing:clients_list')
+    success_url = reverse_lazy('mailing:client_list')
 
 
 class ClientDeleteView(DeleteView):
     model = Client
-    success_url = reverse_lazy('mailing:clients_list')
+    success_url = reverse_lazy('mailing:client_list')
