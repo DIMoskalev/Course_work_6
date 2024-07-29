@@ -11,5 +11,5 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('theme',)
-    search_fields = ('theme',)
+    list_display = ('title',)
+    search_fields = ('title',)
