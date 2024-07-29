@@ -60,6 +60,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.getenv('NAME'),
         'USER': os.getenv('USER'),
+        # 'USER': 'postgres',
         'HOST': os.getenv('HOST'),
         'PORT': os.getenv('PORT'),
         'PASSWORD': os.getenv('PASSWORD'),
@@ -90,9 +91,9 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-STATICFILES_DIR = (
+STATICFILES_DIRS = [
     BASE_DIR / 'static',
-)
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

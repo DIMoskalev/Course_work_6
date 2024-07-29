@@ -24,6 +24,6 @@ class MailingAdmin(admin.ModelAdmin):
 
 @admin.register(Log)
 class LogAdmin(admin.ModelAdmin):
-    list_display = ('time', 'status', 'server_answer', 'client')
-    list_filter = ('status', 'client', 'time')
-    search_fields = ('status', 'client', 'time')
+    list_display = ('time', 'status', 'server_answer', 'mailing')
+    list_filter = ('status', 'time')
+    search_fields = ('status', 'time')
