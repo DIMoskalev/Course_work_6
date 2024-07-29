@@ -2,7 +2,7 @@ from django.db import models
 
 from users.models import User
 
-NULLABLE = {'null': True, 'blank': True}
+NULLABLE = {"blank": True, "null": True}
 
 
 class Client(models.Model):
@@ -35,6 +35,7 @@ class Message(models.Model):
 
 
 class Mailing(models.Model):
+
     DAILY = 'Раз в день'
     WEEKLY = 'Раз в неделю'
     MONTHLY = 'Раз в месяц'
@@ -62,7 +63,9 @@ class Mailing(models.Model):
                                    verbose_name='Периодичность')
     start_date = models.DateTimeField(verbose_name='Дата начала', **NULLABLE)
     end_date = models.DateTimeField(verbose_name='Дата окончания', **NULLABLE)
-    clients = models.ManyToManyField(Client, verbose_name='Клиенты для рассылки')
+    clients = models.ManyToManyField(Client, related_name='mailing', verbose_name='Клиенты для рассылки')
+    message = models.ForeignKey(Message, verbose_name='Сообщение для рассылки', on_delete=models.CASCADE, **NULLABLE)
+    owner = models.ForeignKey(User, verbose_name='Владелец', on_delete=models.SET_NULL, **NULLABLE)
 
     def __str__(self):
         return f'{self.name}, статус:{self.status}'
@@ -74,12 +77,18 @@ class Mailing(models.Model):
 
 
 class Log(models.Model):
-    time = models.DateTimeField(verbose_name='Дата и время последней попытки отправки')
-    status = models.BooleanField(verbose_name='Статус попытки (успешно / не успешно')
+    SUCCESS = 'Успешно'
+    FAILED = 'Не успешно'
+    STATUS_CHOICES = [
+        (SUCCESS, 'Успешно'),
+        (FAILED, 'Не успешно')]
+
+    time = models.DateTimeField(verbose_name='Дата и время последней попытки отправки', auto_now_add=True)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES,
+                              verbose_name='Статус попытки (успешно / не успешно')
     server_answer = models.CharField(max_length=150, verbose_name='Ответ почтового сервера',
                                      **NULLABLE)  # позже разобраться с фразой если он был, пока нулабл
     mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE, verbose_name='Рассылка')
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Клиент')
 
     def __str__(self):
         return f'{self.mailing} {self.time}, статус: {self.status}, ответ сервера: {self.server_answer}'
