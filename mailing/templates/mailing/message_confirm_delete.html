@@ -1,10 +1,9 @@
 {% extends 'mailing/base.html' %}
-
 {% block content %}
 
 <section class="jumbotron text-center">
     <div class="container">
-        <h2 class="jumbotron-heading">Удаление клиента</h2>
+        <h2 class="jumbotron-heading">Удаление сообщения</h2>
     </div>
 </section>
 <section class="jumbotron text-center">
@@ -16,9 +15,9 @@
                         <div class="card-body">
                             <form method="post">
                                 {% csrf_token %}
-                                <p>Хотите удалить клиента "{{ object.name }}"?</p>
+                                <p>Хотите удалить сообщение "{{ object.name }}"?</p>
                                 <button type="submit" class="btn btn-danger">Подтвердить</button>
-                                <a href="{% url 'mailing:client_list' %}" class="btn btn-warning">Отмена</a>
+                                <a href="{% url 'mailing:message_list' %}" class="btn btn-warning">Отмена</a>
                             </form>
                         </div>
                     </div>
