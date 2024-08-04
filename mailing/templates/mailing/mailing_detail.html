@@ -25,6 +25,7 @@
                             {% endfor %}
                             </p>
                             <p class="card-text">Сообщение для рассылки: {{ mailing.message }}</p>
+                            <p class="card-text">Владелец: {{ mailing.owner }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a class="btn btn-primary" href="{% url 'mailing:mailing_list' %}" role="button">Назад</a>
