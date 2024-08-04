@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
+from mailing.forms import ClientForm, MessageForm, MailingForm
 from mailing.models import Client, Message, Mailing, Log
 
 
@@ -19,13 +20,20 @@ class ClientDetailView(DetailView):
 
 class ClientCreateView(CreateView):
     model = Client
-    fields = ['name', 'email', 'comment']
+    form_class = ClientForm
     success_url = reverse_lazy('mailing:client_list')
+
+    def form_valid(self, form):
+        client = form.save(commit=False)
+        user = self.request.user
+        client.owner = user
+        client.save()
+        return super().form_valid(form)
 
 
 class ClientUpdateView(UpdateView):
     model = Client
-    fields = ['name', 'email', 'comment']
+    form_class = ClientForm
     success_url = reverse_lazy('mailing:client_list')
 
     def get_success_url(self):
@@ -47,13 +55,13 @@ class MessageDetailView(DetailView):
 
 class MessageCreateView(CreateView):
     model = Message
-    fields = ['title', 'text',]
+    form_class = MessageForm
     success_url = reverse_lazy('mailing:message_list')
 
 
 class MessageUpdateView(UpdateView):
     model = Message
-    fields = ['title', 'text',]
+    form_class = MessageForm
     success_url = reverse_lazy('mailing:message_list')
 
     def get_success_url(self):
@@ -75,13 +83,13 @@ class MailingDetailView(DetailView):
 
 class MailingCreateView(CreateView):
     model = Mailing
-    fields = ['name', 'description', 'status', 'periodicity', 'start_date', 'end_date', 'clients', 'message',]
+    form_class = MailingForm
     success_url = reverse_lazy('mailing:mailing_list')
 
 
 class MailingUpdateView(UpdateView):
     model = Mailing
-    fields = ['name', 'description', 'status', 'periodicity', 'start_date', 'end_date', 'clients', 'message',]
+    form_class = MailingForm
     success_url = reverse_lazy('mailing:mailing_list')
 
     def get_success_url(self):
