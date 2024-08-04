@@ -63,12 +63,18 @@ class Mailing(models.Model):
                                    verbose_name='Периодичность')
     start_date = models.DateTimeField(verbose_name='Дата начала', **NULLABLE)
     end_date = models.DateTimeField(verbose_name='Дата окончания', **NULLABLE)
+    next_send_time = models.DateTimeField(verbose_name='Время следующей отправки', **NULLABLE)
     clients = models.ManyToManyField(Client, related_name='mailing', verbose_name='Клиенты для рассылки')
     message = models.ForeignKey(Message, verbose_name='Сообщение для рассылки', on_delete=models.CASCADE, **NULLABLE)
     owner = models.ForeignKey(User, verbose_name='Владелец', on_delete=models.SET_NULL, **NULLABLE)
 
     def __str__(self):
         return f'{self.name}, статус:{self.status}'
+
+    def save(self, *args, **kwargs):
+        if self.next_send_time is None:
+            self.next_send_time = self.start_date
+        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Рассылка'
