@@ -80,6 +80,10 @@ class Mailing(models.Model):
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'
         ordering = ('name',)
+        permissions = [
+            ('view_mailings', 'Can view mailings'),
+            ('cancel_mailings', 'Can cancel mailings'),
+        ]
 
 
 class Log(models.Model):

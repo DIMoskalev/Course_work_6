@@ -1,9 +1,11 @@
 import secrets
 
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 
 from config import settings
 from users.forms import RegisterForm, UserProfileForm
@@ -43,6 +45,11 @@ class ProfileView(UpdateView):
         return self.request.user
 
 
+class UserListView(PermissionRequiredMixin, ListView):
+    model = User
+    permission_required = 'users.view_users'
+
+
 def email_confirm(request, token):
     user = get_object_or_404(User, token=token)
     user.is_active = True
@@ -57,7 +64,7 @@ def pass_recovery(request):
     }
     if request.method == 'GET':
         return render(request, 'users/pass_recovery.html')
-    if request.method == 'POST':
+    elif request.method == 'POST':
         email = request.POST.get('email')
         user = get_object_or_404(User, email=email)
         password = User.objects.make_random_password(length=10)
@@ -70,3 +77,14 @@ def pass_recovery(request):
             [user.email],
         )
         return render(request, 'users/pass_recovery.html', context)
+
+
+@permission_required('users.block_users')
+def block_user(request, pk):
+    user = User.objects.get(pk=pk)
+    if user.is_active:
+        user.is_active = False
+    else:
+        user.is_active = True
+    user.save()
+    return redirect(reverse('users:users_list'))

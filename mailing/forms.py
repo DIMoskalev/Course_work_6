@@ -52,3 +52,9 @@ class MessageForm(StyleFormMixin, forms.ModelForm):
             if banned_word in cleaned_data.lower():
                 raise forms.ValidationError(f'Нельзя использовать слово "{banned_word}" для сообщения')
         return cleaned_data
+
+
+class MailingManagerForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Mailing
+        fields = ('status',)
