@@ -18,6 +18,7 @@
                             <p class="card-text">Статус: {{ mailing.status }}</p>
                             <p class="card-text">Периодичность: {{ mailing.periodicity }}</p>
                             <p class="card-text">Дата начала: {{ mailing.start_date }}</p>
+                            <p class="card-text">Следующая отправка: {{ mailing.next_send_time }}</p>
                             <p class="card-text">Дата окончания: {{ mailing.end_date }}</p>
                             <p class="card-text">Клиенты для рассылки:
                             {% for client in mailing.clients.all %}

@@ -16,6 +16,7 @@
                             <p class="card-text">ФИО клиента: {{ client.name }}</p>
                             <p class="card-text">Email клиента: {{ client.email }}</p>
                             <p class="card-text">Комментарий: {{ client.comment }}</p>
+                            <p class="card=text">Владелец: {{ client.owner }}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a class="btn btn-primary" href="{% url 'mailing:client_list' %}" role="button">Назад</a>

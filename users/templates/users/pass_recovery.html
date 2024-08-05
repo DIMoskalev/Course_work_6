@@ -17,9 +17,9 @@
                     <a class="btn btn-primary" href="{% url 'user:login' %}" role="button">Войти</a>
                     {% else %}
                     <form class="row" method='post'>
-                         {% csrf_token %}
-                    <input type="text" class="form-control mb-3" name="email" placeholder="Введите ваш email">
-                    <button type="submit" class="btn btn-primary">Восстановить пароль</button>
+                        {% csrf_token %}
+                        <input type="text" class="form-control mb-3" name="email" placeholder="Введите ваш email">
+                        <button type="submit" class="btn btn-primary">Восстановить пароль</button>
                     </form>
                     {% endif %}
                 </div>
