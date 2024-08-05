@@ -60,7 +60,7 @@ def email_confirm(request, token):
 
 def pass_recovery(request):
     context = {
-        'succses_message': 'Пароль сброшен. Новый пароль отправлен на вашу электронную почту'
+        'success_message': 'Пароль сброшен. Новый пароль отправлен на вашу электронную почту'
     }
     if request.method == 'GET':
         return render(request, 'users/pass_recovery.html')

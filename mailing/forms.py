@@ -36,7 +36,7 @@ class MessageForm(StyleFormMixin, forms.ModelForm):
         exclude = ('owner',)
 
     def clean_title(self):
-        cleaned_data = self.cleaned_data['name']
+        cleaned_data = self.cleaned_data['title']
         banned_words = ['казино', 'криптовалюта', 'крипта', 'биржа', ' дешево', 'бесплатно', 'обман', 'полиция',
                         'радар']
         for banned_word in banned_words:
@@ -45,7 +45,7 @@ class MessageForm(StyleFormMixin, forms.ModelForm):
         return cleaned_data
 
     def clean_text(self):
-        cleaned_data = self.cleaned_data['name']
+        cleaned_data = self.cleaned_data['text']
         banned_words = ['казино', 'криптовалюта', 'крипта', 'биржа', ' дешево', 'бесплатно', 'обман', 'полиция',
                         'радар']
         for banned_word in banned_words:

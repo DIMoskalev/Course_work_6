@@ -13,8 +13,8 @@
                 </div>
                 <div class="card-body">
                     {% if success_message %}
-                    <p>{% success_message %}</p>
-                    <a class="btn btn-primary" href="{% url 'user:login' %}" role="button">Войти</a>
+                    <p>{{ success_message }}</p>
+                    <a class="btn btn-primary" href="{% url 'users:login' %}" role="button">Войти</a>
                     {% else %}
                     <form class="row" method='post'>
                         {% csrf_token %}

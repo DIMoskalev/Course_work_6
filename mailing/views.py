@@ -128,21 +128,20 @@ class MailingListView(LoginRequiredMixin, ListView):
     model = Mailing
 
     def get_queryset(self, queryset=None):
-        self.object = super().get_queryset()
+        queryset = super().get_queryset()
         user = self.request.user
-        if user.is_superuser or user.has_perm('view_mailings') or user == self.object.owner:
-            raise self.object
-        else:
-            return PermissionDenied
+        if not user.is_superuser or not user.has_perm('view_mailings'):
+            queryset = queryset.filter(owner=self.request.user)
+        return queryset
 
 
 class MailingDetailView(LoginRequiredMixin, DetailView):
     model = Mailing
 
-    def get_queryset(self, queryset=None):
+    def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        if (self.request.user.is_superuser or self.request.user == self.object.owner or
-                self.request.user.has_perm('view_mailings')):
+        user = self.request.user
+        if user.is_superuser or user == self.object.owner or user.has_perm('view_mailings'):
             return self.object
         else:
             return PermissionDenied
