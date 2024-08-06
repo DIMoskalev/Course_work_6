@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'mailing',
     'users',
     'django_apscheduler',
+    'blog',
 ]
 
 MIDDLEWARE = [

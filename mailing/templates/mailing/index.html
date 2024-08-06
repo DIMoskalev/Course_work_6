@@ -7,8 +7,9 @@
         <p>
             {% if user.is_authenticated %}
             <a href="{% url 'mailing:client_create' %}" class="btn btn-primary my-2">Добавить клиента</a>
-            <a href="{% url 'mailing:message_create' %}" class="btn btn-secondary my-2">Добавить сообщение</a>
-            <a href="{% url 'mailing:mailing_create' %}" class="btn btn-secondary my-2">Добавить рассылку</a>
+            <a href="{% url 'mailing:message_create' %}" class="btn btn-primary my-2">Добавить сообщение</a>
+            <a href="{% url 'mailing:mailing_create' %}" class="btn btn-primary my-2">Добавить рассылку</a>
+            <a href="{% url 'blog:blog_create' %}" class="btn btn-primary my-2">Добавить статью</a>
             {% else %}
             <a href="{% url 'users:login' %}" class="btn btn-primary my-2">Войти</a>
             <a href="{% url 'users:register' %}" class="btn btn-secondary my-2">Зарегистрироваться</a>
