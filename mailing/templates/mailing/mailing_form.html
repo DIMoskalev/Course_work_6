@@ -1,16 +1,14 @@
 {% extends 'mailing/base.html' %}
 {% block content %}
-<section class="jumbotron text-center">
-    <div class="container">
-        <h2 class="jumbotron-heading mb-4">
-            {% if object %}
-            Изменение рассылки
-            {% else %}
-            Создание новой рассылки
-            {% endif %}
-        </h2>
-    </div>
-</section>
+<div class="album py-5 bg-light">
+    <h2 class="jumbotron-heading mb-4 d-flex justify-content-center">
+        {% if object %}
+        Изменение рассылки
+        {% else %}
+        Создание новой рассылки
+        {% endif %}
+    </h2>
+</div>
 <section class="jumbotron text-center">
     <div class="container">
         <div class="col-12">
