@@ -1,4 +1,5 @@
 {% extends 'mailing/base.html' %}
+{% load my_tags %}
 {% block content %}
 <section class="jumbotron text-center">
     <div class="container">
@@ -38,10 +39,11 @@
         <h3>Случайный блог с сайта</h3>
     </div>
     <div class="container  d-flex justify-content-center">
-        <div class="col-6">
+        {% for blog in random_blog %}
+        <div class="col-4">
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
-                    {% for blog in random_blog %}
+                    <img src="{{ blog.preview | media_filter }}" class="img-fluid">
                     <p class="card-text">Заголовок: {{ blog.title }}</p>
                     <p class="card-text">Содержание: {{ blog.text|slice:100}}</p>
                     <p class="card-text">Статья создана: {{ blog.created_at }}</p>
