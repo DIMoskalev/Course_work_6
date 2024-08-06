@@ -17,4 +17,39 @@
         </p>
     </div>
 </section>
+<section class="text-center">
+    <div class="container">
+        <h3>Статистика сайта</h3>
+    </div>
+    <div class="container d-flex justify-content-center">
+        <div class="col-6 d-flex justify-content-center">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <p class="card-text">Всего рассылок: {{ mailings }}</p>
+                    <p class="card-text">Активных рассылок: {{ active_mailings }}</p>
+                    <p class="card-text">Количество уникальных клиентов: {{ unique_clients }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="text-center">
+    <div class="container d-flex justify-content-center">
+        <h3>Случайный блог с сайта</h3>
+    </div>
+    <div class="container  d-flex justify-content-center">
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    {% for blog in random_blog %}
+                    <p class="card-text">Заголовок: {{ blog.title }}</p>
+                    <p class="card-text">Содержание: {{ blog.text|slice:100}}</p>
+                    <p class="card-text">Статья создана: {{ blog.created_at }}</p>
+                    <p class="card-text">Количество просмотров: {{ blog.views_count }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}
