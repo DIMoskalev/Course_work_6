@@ -18,16 +18,18 @@ class ClientForm(StyleFormMixin, forms.ModelForm):
 
 
 class MailingForm(StyleFormMixin, forms.ModelForm):
-    start_date = forms.DateTimeField(label='start_date', required=False,
-                                     widget=forms.TextInput(attrs={'placeholder': 'Формат даты: 20.12.2024 14:00:00'}))
-    end_date = forms.DateTimeField(label='end_date', required=False,
-                                   widget=forms.TextInput(attrs={'placeholder': 'Формат даты: 20.12.2024 14:00:00'}))
-    next_send_time = forms.DateTimeField(label='next_send_time', required=False, widget=forms.TextInput(
-        attrs={'placeholder': 'Формат даты: 20.12.2024 14:00:00'}))
 
     class Meta:
         model = Mailing
         exclude = ('owner',)
+        widgets = {
+            'start_date': forms.DateTimeInput(
+                attrs={'type': 'datetime-local'}),
+            'end_date': forms.DateTimeInput(
+                attrs={'type': 'datetime-local'}),
+            'next_send_time': forms.DateTimeInput(
+                attrs={'type': 'datetime-local'}),
+        }
 
 
 class MessageForm(StyleFormMixin, forms.ModelForm):
