@@ -5,6 +5,7 @@ from pytils.translit import slugify
 
 from blog.forms import BlogForm
 from blog.models import Blog
+from blog.services import get_articles_from_cache
 
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
@@ -24,8 +25,7 @@ class BlogListView(LoginRequiredMixin, ListView):
     model = Blog
 
     def get_queryset(self, *args, **kwargs):
-        queryset = super().get_queryset(*args, **kwargs)
-        queryset = queryset.filter(is_published=True)
+        queryset = get_articles_from_cache().filter(is_published=True)
         return queryset
 
 
